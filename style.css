@@ -33,7 +33,7 @@ nav a {
 
 h1 {
     height: 4rem;
-    background-color: rgba(215, 209, 209, 0.318);
+    background-color: rgba(126, 122, 124, 0.318);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,15 +54,20 @@ h1 {
 }
 
 .card-img-top {
-    height: 12rem;
+    height: 13rem;
     object-fit: cover;
 }
 
 .card {
-    margin: 2rem;
+    background-color: rgba(0, 0, 0, 0.296);
+    margin: 1rem;
     align-items: center;
     padding: 2rem;
     border: 2px solid gray;
+}
+
+.card-body{
+    padding: 2rem 0 !important;
 }
 
 .prices{
@@ -82,7 +87,7 @@ h1 {
 }
 
 footer {
-    background-color: rgba(215, 209, 209, 0.318);
+    background-color: rgba(126, 122, 124, 0.318);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -102,8 +107,6 @@ footer {
     display: flex;
     flex-direction: column;
 }
-
-
 
 .inputForm {
     margin-bottom: 2rem;
@@ -151,8 +154,8 @@ table, td, th {
     align-items: center;
     justify-content: space-around;
     border: 2px solid gray;
-    padding: 4rem 2rem;
-    margin: 5rem 2rem;
+    padding: 1rem 1rem;
+    margin: 1rem 1rem;
 }
 
 .description {
@@ -161,6 +164,7 @@ table, td, th {
 
 .descriptionImg{
     width: 42%;
+    object-fit: cover;
 }
 
 span {
@@ -211,7 +215,7 @@ span {
     
     .card {
         margin: 1rem;
-        padding: 1rem;
+        padding: 2rem;
     }
 
     .detailsDiv {
@@ -227,6 +231,9 @@ span {
     .descriptionImg{
         margin-bottom: 2rem;
         width: 90%;
+    }
+    .card-img-top {
+        height: 12.5rem;
     }
 }
 
