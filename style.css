@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+main{
+    min-height: 65vh;
+}
+
 .loguillo {
     width: 30%;
 }
@@ -43,14 +47,20 @@ h1 {
 .checks {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-check{
+    display: inline-block;
+    margin: 1rem;
 }
 
 .cards {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
 }
 
 .card-img-top {
@@ -86,6 +96,13 @@ h1 {
     width: 6rem;
 }
 
+
+.inputs{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
 footer {
     background-color: rgba(126, 122, 124, 0.318);
     display: flex;
@@ -164,7 +181,16 @@ table, td, th {
 
 .descriptionImg{
     width: 42%;
+    height: 56vh;
     object-fit: cover;
+}
+
+.no-events{
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: rgb(161, 5, 73) 
 }
 
 span {
