@@ -32,7 +32,7 @@ function generateCard(event){
     <div class="card-body">
         <h5 class="card-title">${event.name}</h5>
         <p class="card-text">${event.description}</p>
-        <div class="prices"><span>Price: $${event.price}</span><a href="../pages/details.html" class="btn btn-primary">See more</a></div>
+        <div class="prices"><span>Price: $${event.price}</span><a href="../pages/details.html?name=${event.name}" class="btn btn-primary">See more</a></div>
     </div>
     </div>
     `
@@ -68,7 +68,7 @@ function innerHTML(array, container) {
 }
 
 function printChecks(checkList, container){
-    template=""
+    let template=""
     for (const check of checkList) {
         template += `<input class="form-check-input" type="checkbox" value="${check}" id="${check}">
             <label class="form-check-label" for="food-fair">

@@ -22,5 +22,8 @@ function printEvent(event){
 
     $detailsDiv.innerHTML = details
 }
+console.log(eventName)
 
 printEvent(detailsEvent)
+
+
