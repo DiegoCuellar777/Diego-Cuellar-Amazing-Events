@@ -1,103 +1,35 @@
-const events = data.eventos
-const pastEvents = filterPast(events)
+import {getElement, printChecks, crossedFilter, filterPast, innerHTMLUpcomingAndPast} from "./functions.js"
+
+const url = "https://mindhub-xj03.onrender.com/api/amazing"
+
 const $checksDiv = getElement("checks")
 const $search = getElement("search")
 const cardsDiv= document.getElementById("div-cards")
 
-const categories = events.map(event => event.category)
-const setCategories = new Set (categories)
-const arrayCategories = Array.from(setCategories)
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        let events = data.events
+        let current = data.currentDate
+        let pastEvents = filterPast(events, current)
+        let arrayCategories = [...new Set (events.map(event => event.category))]
+        printChecks(arrayCategories, $checksDiv)
+        innerHTMLUpcomingAndPast(pastEvents,cardsDiv)
 
-printChecks(arrayCategories, $checksDiv)
-innerHTML(pastEvents,cardsDiv)
+        $checksDiv.addEventListener("change", () => {
+            let selected = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(e => e.id)
+            const filteredEvents = crossedFilter(pastEvents, selected, $search.value)
+            innerHTMLUpcomingAndPast(filteredEvents, cardsDiv)
+        })
+        
+        $search.addEventListener("keyup", () => {
+            let selected = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(e => e.id)
+            const filteredEvents = crossedFilter(pastEvents, selected, $search.value)
+            innerHTMLUpcomingAndPast(filteredEvents, cardsDiv)
+        })
+    })
+    .catch(err => console.log(err))   
 
-let selected = []
-
-$checksDiv.addEventListener("change", () => {
-    selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(e => e.id)
-    const filteredEvents = crossedFilter(pastEvents, selected, $search.value)
-    innerHTML(filteredEvents, cardsDiv)
-})
-
-$search.addEventListener("keyup", () => {
-    selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(e => e.id)
-    const filteredEvents = crossedFilter(pastEvents, selected, $search.value)
-    innerHTML(filteredEvents, cardsDiv)
-})
-
-function generateCard(event){
-
-    return `<div class="card" style="width: 22rem;">
-    <img src="${event.image}" class="card-img-top" alt="img-eventos">
-    <div class="card-body">
-        <h5 class="card-title">${event.name}</h5>
-        <p class="card-text">${event.description}</p>
-        <div class="prices"><span>Price: $${event.price}</span><a href="../pages/details.html" class="btn btn-primary">See more</a></div>
-    </div>
-    </div>
-    `
-}
-
-function filterPast(arrayEvents){
-
-    let past = []
-
-    for (const evento of arrayEvents) {
-        if(evento.date<data.fechaActual){
-            past.push(evento)
-        }
-    }
-    return past
-}
-
-function getElement (id) {
-    return document.getElementById(id)
-}
-
-function innerHTML(array, container) {
-    let template= ``
-
-    for (const evento of array) {
-        template += generateCard(evento)
-    }
-    if (template=="") {
-        container.innerHTML = `<h2 class="no-events">There are no events with these characteristics</h2>`
-    }else{
-        container.innerHTML = template
-    }
-}
-
-function printChecks(checkList, container){
-    template=""
-    for (const check of checkList) {
-        template += `<input class="form-check-input" type="checkbox" value="${check}" id="${check}">
-            <label class="form-check-label" for="food-fair">
-            ${check}
-            </label>`
-    }
-    container.innerHTML = template
-}
-
-function filterByCategory(eventArray, categories) {
-
-    if (categories.length == 0) {
-        return eventArray
-    }else{
-        let filteredEvents = eventArray.filter(event => categories.includes(event.category))
-        return filteredEvents;
-    }
-}
-
-function filterByText(eventArray, text) {
-    return eventArray.filter( event => event.name.toLowerCase().includes(text.toLowerCase()) || event.description.toLowerCase().includes(text.toLowerCase()) )
-}
-
-function crossedFilter(eventArray, categories, text) {
-    let filteredByCategory = filterByCategory(eventArray, categories)
-    let filteredByText = filterByText(filteredByCategory, text)
-
-    return filteredByText    
-}
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 // const cardsDiv= document.getElementById("div-cards")
